@@ -1,0 +1,22 @@
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null || head.next == null) return head;
+
+        ListNode res = new ListNode(0, head); // Dummy node before head
+        ListNode prev = res;
+
+        while (head != null && head.next != null) {
+            if (head.val == head.next.val) {
+                while (head.next != null && head.next.val == head.val) {
+                    head = head.next; // Move to the last duplicate node
+                }
+                prev.next = head.next; // Skip all duplicates
+            } else {
+                prev = prev.next; // Move prev forward only if no duplicate
+            }
+            head = head.next; 
+        }
+
+        return res.next; // Return the updated list
+    }
+}
